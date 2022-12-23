@@ -72,12 +72,12 @@ describe('media test', () => {
       autoAcceptConnection: true,
     })
 
-    let { connectionRecord: bobConnectionRecord } = await bobAgent.oob.receiveInvitationFromUrl(
+    let { connectionRecord } = await bobAgent.oob.receiveInvitationFromUrl(
       outOfBandRecord.outOfBandInvitation.toUrl({ domain: 'https://example.com/ssi' }),
       { autoAcceptConnection: true }
     )
 
-    bobConnectionRecord = await bobAgent.connections.returnWhenIsConnected(bobConnectionRecord!.id)
+    bobConnectionRecord = await bobAgent.connections.returnWhenIsConnected(connectionRecord!.id)
     aliceConnectionRecord = (await aliceAgent.connections.findAllByOutOfBandId(outOfBandRecord.id))[0]
     aliceConnectionRecord = await aliceAgent.connections.returnWhenIsConnected(aliceConnectionRecord!.id)
   })
