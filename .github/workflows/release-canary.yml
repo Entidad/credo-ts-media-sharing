@@ -55,8 +55,6 @@ jobs:
     runs-on: ubuntu-20.04
     name: Release
     needs: [validate]
-    # Only run on workflow dispatch to main branch
-    if: github.ref == 'refs/heads/main' && github.repository == '2060-io/aries-javascript-media-sharing' && github.event_name == 'workflow_dispatch'
     steps:
       - name: Checkout aries-javascript-media-sharing
         uses: actions/checkout@v2
