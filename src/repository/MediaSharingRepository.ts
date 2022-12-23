@@ -1,0 +1,13 @@
+import { EventEmitter, InjectionSymbols, Repository, StorageService } from '@aries-framework/core'
+import { inject, scoped, Lifecycle } from 'tsyringe'
+import { MediaSharingRecord } from './MediaSharingRecord'
+
+@scoped(Lifecycle.ContainerScoped)
+export class MediaSharingRepository extends Repository<MediaSharingRecord> {
+  public constructor(
+    @inject(InjectionSymbols.StorageService) storageService: StorageService<MediaSharingRecord>,
+    eventEmitter: EventEmitter
+  ) {
+    super(MediaSharingRecord, storageService, eventEmitter)
+  }
+}
