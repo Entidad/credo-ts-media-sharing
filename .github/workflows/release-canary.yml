@@ -1,12 +1,6 @@
-name: Continuous Deployment
+name: Continuous Deployment - Canary Release
 
 on:
-  workflow_dispatch:
-    inputs:
-      releaseType:
-        description: The type of release. Should be one of "major", "minor", "patch"
-        required: true
-        default: 'patch'
   pull_request:
     branches:
       - main
@@ -37,6 +31,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      # Some packages need indy-sdk for node as part of yarn install
+      - name: Setup Libindy
+        uses: ./.github/actions/setup-libindy
+
       - name: Setup node v16
         uses: actions/setup-node@v2
         with:
@@ -77,6 +76,11 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      # Some packages need indy-sdk for node as part of yarn install
+      - name: Setup Libindy
+        uses: ./.github/actions/setup-libindy
+
       - name: Setup node v16
         uses: actions/setup-node@v2
         with:
