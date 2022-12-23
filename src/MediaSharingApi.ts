@@ -79,7 +79,10 @@ export class MediaSharingApi {
     })
 
     await this.messageSender.sendMessage(
-      new OutboundMessageContext(payload, { agentContext: this.agentContext, connection })
+      new OutboundMessageContext(payload, {
+        agentContext: this.agentContext,
+        connection,
+      })
     )
 
     return record

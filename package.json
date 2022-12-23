@@ -1,7 +1,7 @@
 {
-  "name": "aries-javascript-media-sharing",
-  "version": "0.0.0",
-  "description": "Media sharing protocol implementation for @aries-framework/core",
+  "name": "aries-framework-media-sharing",
+  "version": "0.0.0.alpha-0",
+  "description": "Media sharing protocol implementation for aries-framework",
   "author": "2060.io",
   "homepage": "https://github.com/2060-io/aries-javascript-media-sharing",
   "license": "ISC",
@@ -15,6 +15,9 @@
     "clean": "rimraf -rf ./build",
     "compile": "tsc -p tsconfig.build.json",
     "prepublishOnly": "yarn run build",
+    "check-types": "tsc --noEmit -p tsconfig.build.json",
+    "check-format": "yarn prettier --check",
+    "prettier": "prettier --ignore-path .gitignore '**/*.+(js|json|ts|md|yml|yaml)'",
     "release": "release-it"
   },
   "repository": {
@@ -27,7 +30,7 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  },  
+  },
   "devDependencies": {
     "@aries-framework/node": "^0.3.0",
     "@types/jest": "^26.0.23",

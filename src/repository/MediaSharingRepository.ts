@@ -5,7 +5,8 @@ import { MediaSharingRecord } from './MediaSharingRecord'
 @scoped(Lifecycle.ContainerScoped)
 export class MediaSharingRepository extends Repository<MediaSharingRecord> {
   public constructor(
-    @inject(InjectionSymbols.StorageService) storageService: StorageService<MediaSharingRecord>,
+    @inject(InjectionSymbols.StorageService)
+    storageService: StorageService<MediaSharingRecord>,
     eventEmitter: EventEmitter
   ) {
     super(MediaSharingRecord, storageService, eventEmitter)

@@ -10,7 +10,10 @@ import { recordsAddedByType } from './recordUtils'
 
 const logger = new ConsoleLogger(LogLevel.info)
 
-export type SubjectMessage = { message: EncryptedMessage; replySubject?: Subject<SubjectMessage> }
+export type SubjectMessage = {
+  message: EncryptedMessage
+  replySubject?: Subject<SubjectMessage>
+}
 
 describe('media test', () => {
   let aliceAgent: Agent<{ media: MediaSharingModule }>
@@ -73,7 +76,9 @@ describe('media test', () => {
     })
 
     let { connectionRecord } = await bobAgent.oob.receiveInvitationFromUrl(
-      outOfBandRecord.outOfBandInvitation.toUrl({ domain: 'https://example.com/ssi' }),
+      outOfBandRecord.outOfBandInvitation.toUrl({
+        domain: 'https://example.com/ssi',
+      }),
       { autoAcceptConnection: true }
     )
 
@@ -110,13 +115,22 @@ describe('media test', () => {
 
     const aliceRecord = await aliceAgent.modules.media.create({
       connectionId: aliceConnectionRecord!.id,
-      metadata: { metadataKey1: 'metadata-val', metadataKey2: { key21: 'value21', key22: 'value22' } },
+      metadata: {
+        metadataKey1: 'metadata-val',
+        metadataKey2: { key21: 'value21', key22: 'value22' },
+      },
     })
 
     expect(aliceRecord.metadata.get('metadataKey1')).toEqual('metadata-val')
-    expect(aliceRecord.metadata.get('metadataKey2')).toMatchObject({ key21: 'value21', key22: 'value22' })
+    expect(aliceRecord.metadata.get('metadataKey2')).toMatchObject({
+      key21: 'value21',
+      key22: 'value22',
+    })
 
-    await aliceAgent.modules.media.share({ recordId: aliceRecord.id, items: [{ uri: 'http://blabla' }] })
+    await aliceAgent.modules.media.share({
+      recordId: aliceRecord.id,
+      items: [{ uri: 'http://blabla' }],
+    })
 
     recordsAddedByType(bobAgent, MediaSharingRecord)
       //.pipe(filter((e) => e.state === MediaSharingState.MediaShared))

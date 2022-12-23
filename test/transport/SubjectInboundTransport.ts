@@ -11,7 +11,10 @@ import type { Subscription } from 'rxjs'
 
 import { Subject } from 'rxjs'
 
-export type SubjectMessage = { message: EncryptedMessage; replySubject?: Subject<SubjectMessage> }
+export type SubjectMessage = {
+  message: EncryptedMessage
+  replySubject?: Subject<SubjectMessage>
+}
 
 export class SubjectInboundTransport implements InboundTransport {
   public readonly ourSubject: Subject<SubjectMessage>

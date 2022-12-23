@@ -204,7 +204,9 @@ export class MediaSharingService {
    * @returns The media sharing record
    */
   public async findByThreadId(agentContext: AgentContext, threadId: string): Promise<MediaSharingRecord | null> {
-    return this.mediaSharingRepository.findSingleByQuery(agentContext, { threadId })
+    return this.mediaSharingRepository.findSingleByQuery(agentContext, {
+      threadId,
+    })
   }
 
   /**
@@ -217,7 +219,9 @@ export class MediaSharingService {
    * @returns The media sharing record
    */
   public async findAllByConnectionId(agentContext: AgentContext, connectionId: string): Promise<MediaSharingRecord[]> {
-    return this.mediaSharingRepository.findByQuery(agentContext, { connectionId })
+    return this.mediaSharingRepository.findByQuery(agentContext, {
+      connectionId,
+    })
   }
 
   /**
