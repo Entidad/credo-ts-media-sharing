@@ -53,6 +53,7 @@ jobs:
         run: yarn check-types
   release:
     runs-on: ubuntu-20.04
+    environment: NPM
     name: Release
     needs: [validate]
     steps:
