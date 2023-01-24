@@ -142,6 +142,5 @@ describe('media test', () => {
     expect(bobRecord.items?.length).toBe(1)
     expect(bobRecord.items![0].mimeType).toBe('image/png')
     expect(bobRecord.items![0].uri).toBe('http://blabla')
-
   })
 })

@@ -73,7 +73,7 @@ export class MediaSharingApi {
 
     const { message: payload } = await this.mediaSharingService.createMediaShare(this.agentContext, {
       record: record,
-      items: options.items?.map(item => new SharedMediaItem(item)),
+      items: options.items?.map((item) => new SharedMediaItem(item)),
       description: options.description,
       parentThreadId: options.parentThreadId,
     })

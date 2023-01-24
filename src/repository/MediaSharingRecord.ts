@@ -16,19 +16,18 @@ export interface SharedMediaItemOptions extends Omit<AttachmentOptions, 'data'> 
 }
 
 export class SharedMediaItem extends Attachment {
-  
   @Exclude()
   public get uri() {
     return this.data.links ? this.data.links[0] : undefined
   }
 
   public ciphering?: CipheringInfo
-  public metadata?: Record<string, unknown>  
+  public metadata?: Record<string, unknown>
 
   public constructor(options: SharedMediaItemOptions) {
-    super({ ...options, data: new AttachmentData({ links: [ options?.uri ] })})
+    super({ ...options, data: new AttachmentData({ links: [options?.uri] }) })
     if (options) {
-      this.ciphering = options.ciphering    
+      this.ciphering = options.ciphering
       this.metadata = options.metadata
     }
   }
