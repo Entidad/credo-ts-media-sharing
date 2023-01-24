@@ -2,7 +2,7 @@ import { AgentContext, AriesFrameworkError, EventEmitter, MessageHandlerInboundM
 import { Lifecycle, scoped } from 'tsyringe'
 
 import { MediaSharingEventTypes, MediaSharingStateChangedEvent } from '../MediaSharingEvents'
-import { MediaSharingRepository, MediaSharingRecord, SharedMediaItem } from '../repository'
+import { MediaSharingRepository, MediaSharingRecord } from '../repository'
 import { ShareMediaMessage } from '../messages'
 import { ShareMediaHandler } from '../handlers'
 import { MediaSharingRole, MediaSharingState } from '../model'
@@ -103,29 +103,13 @@ export class MediaSharingService {
 
     const record = await this.findByThreadId(messageContext.agentContext, message.threadId)
 
-    // Auth record record already exists
+    // Media sharing record already exists
     if (record) {
       throw new AriesFrameworkError(`There is already a MediaSharingRecord with thread Id ${message.threadId}`)
     } else {
       const connection = messageContext.assertReadyConnection()
 
-      const items: SharedMediaItem[] = []
-      if (message.appendedAttachments) {
-        for (const attachment of message.appendedAttachments) {
-          if (attachment.data.links && attachment.data.links[0]) {
-            items.push({
-              uri: attachment.data.links[0],
-              id: attachment.id,
-              mimeType: attachment.mimeType,
-              filename: attachment.filename,
-              byteCount: attachment.byteCount,
-              description: attachment.description,
-            })
-          }
-        }
-      }
-
-      if (items.length === 0) {
+      if (message.items.length === 0) {
         throw new AriesFrameworkError('There are no valid items in MediaSharingRecord')
       }
 
@@ -136,7 +120,7 @@ export class MediaSharingService {
         parentThreadId: messageContext.message.thread?.parentThreadId,
         state: MediaSharingState.MediaShared,
         role: MediaSharingRole.Receiver,
-        items,
+        items: message.items,
         description: message.description,
       })
 

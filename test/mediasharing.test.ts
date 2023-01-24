@@ -129,14 +129,19 @@ describe('media test', () => {
 
     await aliceAgent.modules.media.share({
       recordId: aliceRecord.id,
-      items: [{ uri: 'http://blabla' }],
+      items: [{ mimeType: 'image/png', uri: 'http://blabla' }],
     })
 
     recordsAddedByType(bobAgent, MediaSharingRecord)
       //.pipe(filter((e) => e.state === MediaSharingState.MediaShared))
       .subscribe(subjectBob)
 
-    const bobThread = await firstValueFrom(subjectBob)
-    const aliceThread = await firstValueFrom(subjectAlice)
+    const bobRecord = await firstValueFrom(subjectBob)
+    await firstValueFrom(subjectAlice)
+
+    expect(bobRecord.items?.length).toBe(1)
+    expect(bobRecord.items![0].mimeType).toBe('image/png')
+    expect(bobRecord.items![0].uri).toBe('http://blabla')
+
   })
 })

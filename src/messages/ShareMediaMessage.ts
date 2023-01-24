@@ -1,5 +1,5 @@
-import { AgentMessage, Attachment, AttachmentData, IsValidMessageType, parseMessageType } from '@aries-framework/core'
-import { uuid } from '@aries-framework/core/build/utils/uuid'
+import { AgentMessage, IsValidMessageType, parseMessageType } from '@aries-framework/core'
+import { Type } from 'class-transformer'
 import { IsOptional, IsString } from 'class-validator'
 import { SharedMediaItem } from '../repository'
 
@@ -30,25 +30,16 @@ export class ShareMediaMessage extends AgentMessage {
       }
 
       this.description = options.description
-      for (const item of options.items) {
-        const itemId = item.id ?? uuid()
-        this.addAppendedAttachment(
-          new Attachment({
-            id: itemId,
-            filename: item.filename,
-            mimeType: item.mimeType,
-            byteCount: item.byteCount,
-            description: item.description,
-            data: new AttachmentData({ links: [item.uri] }),
-          })
-        )
-      }
+      this.items = options.items
     }
   }
 
   @IsOptional()
   @IsString()
   public description?: string
+
+  @Type(() => SharedMediaItem)
+  public items!: SharedMediaItem[]
 
   @IsValidMessageType(ShareMediaMessage.type)
   public readonly type = ShareMediaMessage.type.messageTypeUri

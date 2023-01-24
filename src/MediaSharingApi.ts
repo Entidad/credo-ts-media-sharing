@@ -7,7 +7,7 @@ import {
   OutboundMessageContext,
 } from '@aries-framework/core'
 import { ShareMediaHandler } from './handlers'
-import { MediaSharingRecord, SharedMediaItem } from './repository'
+import { MediaSharingRecord, SharedMediaItem, SharedMediaItemOptions } from './repository'
 import { MediaSharingService } from './services'
 
 export interface MediaSharingCreateOptions {
@@ -22,7 +22,7 @@ export interface MediaSharingShareOptions {
   recordId: string
   parentThreadId?: string
   description?: string
-  items?: SharedMediaItem[]
+  items?: SharedMediaItemOptions[]
 }
 
 @injectable()
@@ -35,12 +35,12 @@ export class MediaSharingApi {
   public constructor(
     dispatcher: Dispatcher,
     messageSender: MessageSender,
-    authCodeService: MediaSharingService,
+    mediaSharingService: MediaSharingService,
     connectionService: ConnectionService,
     agentContext: AgentContext
   ) {
     this.messageSender = messageSender
-    this.mediaSharingService = authCodeService
+    this.mediaSharingService = mediaSharingService
     this.connectionService = connectionService
     this.agentContext = agentContext
     this.registerHandlers(dispatcher)
@@ -73,7 +73,7 @@ export class MediaSharingApi {
 
     const { message: payload } = await this.mediaSharingService.createMediaShare(this.agentContext, {
       record: record,
-      items: options.items,
+      items: options.items?.map(item => new SharedMediaItem(item)),
       description: options.description,
       parentThreadId: options.parentThreadId,
     })

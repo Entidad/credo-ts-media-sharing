@@ -1,14 +1,37 @@
 import { v4 as uuid } from 'uuid'
-import { AriesFrameworkError, BaseRecord } from '@aries-framework/core'
+import { AriesFrameworkError, Attachment, AttachmentData, BaseRecord } from '@aries-framework/core'
 import { MediaSharingRole, MediaSharingState } from '../model'
+import { AttachmentOptions } from '@aries-framework/core/build/decorators/attachment/Attachment'
+import { Exclude } from 'class-transformer'
 
-export interface SharedMediaItem {
-  id?: string
-  mimeType?: string
-  filename?: string
-  byteCount?: number
-  description?: string
+export interface CipheringInfo {
+  algorithm: string
+  parameters: Record<string, unknown>
+}
+
+export interface SharedMediaItemOptions extends Omit<AttachmentOptions, 'data'> {
   uri: string
+  ciphering?: CipheringInfo
+  metadata?: Record<string, unknown>
+}
+
+export class SharedMediaItem extends Attachment {
+  
+  @Exclude()
+  public get uri() {
+    return this.data.links ? this.data.links[0] : undefined
+  }
+
+  public ciphering?: CipheringInfo
+  public metadata?: Record<string, unknown>  
+
+  public constructor(options: SharedMediaItemOptions) {
+    super({ ...options, data: new AttachmentData({ links: [ options?.uri ] })})
+    if (options) {
+      this.ciphering = options.ciphering    
+      this.metadata = options.metadata
+    }
+  }
 }
 
 export interface MediaSharingStorageProps {
@@ -47,7 +70,7 @@ export class MediaSharingRecord extends BaseRecord {
       this.threadId = props.threadId
       this.parentThreadId = props.parentThreadId
       this.description = props.description
-      this.items = props.items?.map((item) => ({ ...item, id: item.id ?? uuid() })) ?? []
+      this.items = props.items ?? []
       if (props.metadata) {
         Object.keys(props.metadata).forEach((key) => {
           this.metadata.set(key, props.metadata?.[key])
@@ -82,7 +105,7 @@ export class MediaSharingRecord extends BaseRecord {
 
     if (!expectedStates.includes(this.state)) {
       throw new Error(
-        `Auth code record is in invalid state ${this.state}. Valid states are: ${expectedStates.join(', ')}.`
+        `Media sharing record is in invalid state ${this.state}. Valid states are: ${expectedStates.join(', ')}.`
       )
     }
   }
