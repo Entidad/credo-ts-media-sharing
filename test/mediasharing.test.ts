@@ -1,9 +1,9 @@
 import { agentDependencies } from '@aries-framework/node'
-import { Agent, ConnectionRecord, ConsoleLogger, EncryptedMessage, LogLevel } from '@aries-framework/core'
+import { Agent, ConnectionRecord, ConsoleLogger, EncryptedMessage, JsonTransformer, LogLevel } from '@aries-framework/core'
 import { v4 as uuid } from 'uuid'
 import { firstValueFrom, ReplaySubject, Subject } from 'rxjs'
 import { MediaSharingModule } from '../src/MediaSharingModule'
-import { MediaSharingRecord } from '../src/repository'
+import { MediaSharingRecord, SharedMediaItem } from '../src/repository'
 import { SubjectOutboundTransport } from './transport/SubjectOutboundTransport'
 import { SubjectInboundTransport } from './transport/SubjectInboundTransport'
 import { recordsAddedByType } from './recordUtils'
@@ -129,7 +129,7 @@ describe('media test', () => {
 
     await aliceAgent.modules.media.share({
       recordId: aliceRecord.id,
-      items: [{ mimeType: 'image/png', uri: 'http://blabla' }],
+      items: [{ mimeType: 'image/png', uri: 'http://blabla', metadata: { duration: 14 } }],
     })
 
     recordsAddedByType(bobAgent, MediaSharingRecord)
@@ -139,8 +139,20 @@ describe('media test', () => {
     const bobRecord = await firstValueFrom(subjectBob)
     await firstValueFrom(subjectAlice)
 
+    console.log(bobRecord.items![0])
     expect(bobRecord.items?.length).toBe(1)
     expect(bobRecord.items![0].mimeType).toBe('image/png')
     expect(bobRecord.items![0].uri).toBe('http://blabla')
+    expect(bobRecord.items![0].metadata!.duration).toBe(14)
+
+    // Now retrieve from repository
+    const recordFromRepo = await bobAgent.modules.media.findById(bobRecord.id)
+    expect(recordFromRepo).toBeDefined()
+    expect(recordFromRepo!.items?.length).toBe(1)
+
+    const item = recordFromRepo!.items![0]    
+    expect(item.mimeType).toBe('image/png')
+    expect(item.uri).toBe('http://blabla')
+    expect(item.metadata!.duration).toBe(14)
   })
 })

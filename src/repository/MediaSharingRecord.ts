@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid'
 import { AriesFrameworkError, Attachment, AttachmentData, BaseRecord } from '@aries-framework/core'
 import { MediaSharingRole, MediaSharingState } from '../model'
 import { AttachmentOptions } from '@aries-framework/core/build/decorators/attachment/Attachment'
-import { Exclude } from 'class-transformer'
+import { Exclude, Type } from 'class-transformer'
 
 export interface CipheringInfo {
   algorithm: string
@@ -53,6 +53,8 @@ export class MediaSharingRecord extends BaseRecord {
   public role!: MediaSharingRole
   public state!: MediaSharingState
   public description?: string
+
+  @Type(() => SharedMediaItem)
   public items?: SharedMediaItem[]
 
   public static readonly type = 'MediaSharingRecord'
