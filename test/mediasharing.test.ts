@@ -1,5 +1,12 @@
 import { agentDependencies } from '@aries-framework/node'
-import { Agent, ConnectionRecord, ConsoleLogger, EncryptedMessage, JsonTransformer, LogLevel } from '@aries-framework/core'
+import {
+  Agent,
+  ConnectionRecord,
+  ConsoleLogger,
+  EncryptedMessage,
+  JsonTransformer,
+  LogLevel,
+} from '@aries-framework/core'
 import { v4 as uuid } from 'uuid'
 import { firstValueFrom, ReplaySubject, Subject } from 'rxjs'
 import { MediaSharingModule } from '../src/MediaSharingModule'
@@ -150,7 +157,7 @@ describe('media test', () => {
     expect(recordFromRepo).toBeDefined()
     expect(recordFromRepo!.items?.length).toBe(1)
 
-    const item = recordFromRepo!.items![0]    
+    const item = recordFromRepo!.items![0]
     expect(item.mimeType).toBe('image/png')
     expect(item.uri).toBe('http://blabla')
     expect(item.metadata!.duration).toBe(14)
