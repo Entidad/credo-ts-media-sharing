@@ -44,15 +44,17 @@ export interface MediaSharingStorageProps {
   description?: string
   items?: SharedMediaItem[]
   metadata?: Record<string, unknown>
+  sentTime?: Date
 }
 
-export class MediaSharingRecord extends BaseRecord {
+export class MediaSharingRecord extends BaseRecord<any, any, any> {
   public connectionId!: string
   public threadId?: string
   public parentThreadId?: string
   public role!: MediaSharingRole
   public state!: MediaSharingState
   public description?: string
+  public sentTime?: Date
 
   @Type(() => SharedMediaItem)
   public items?: SharedMediaItem[]
@@ -72,6 +74,7 @@ export class MediaSharingRecord extends BaseRecord {
       this.parentThreadId = props.parentThreadId
       this.description = props.description
       this.items = props.items ?? []
+      this.sentTime = props.sentTime
       if (props.metadata) {
         Object.keys(props.metadata).forEach((key) => {
           this.metadata.set(key, props.metadata?.[key])

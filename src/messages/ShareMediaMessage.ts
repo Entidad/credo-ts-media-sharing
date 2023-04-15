@@ -1,12 +1,14 @@
 import { AgentMessage, IsValidMessageType, parseMessageType } from '@aries-framework/core'
-import { Type } from 'class-transformer'
-import { IsOptional, IsString } from 'class-validator'
+import { DateParser } from '@aries-framework/core/build/utils/transformers'
+import { Expose, Transform, Type } from 'class-transformer'
+import { IsDate, IsOptional, IsString } from 'class-validator'
 import { SharedMediaItem } from '../repository'
 
 export interface ShareMediaMessageOptions {
   id?: string
   threadId?: string
   parentThreadId?: string
+  sentTime?: Date
   description?: string
   items: SharedMediaItem[]
 }
@@ -29,6 +31,7 @@ export class ShareMediaMessage extends AgentMessage {
         })
       }
 
+      this.sentTime = options.sentTime || new Date()
       this.description = options.description
       this.items = options.items
     }
@@ -37,6 +40,11 @@ export class ShareMediaMessage extends AgentMessage {
   @IsOptional()
   @IsString()
   public description?: string
+
+  @Expose({ name: 'sent_time' })
+  @Transform(({ value }) => DateParser(value))
+  @IsDate()
+  public sentTime!: Date
 
   @Type(() => SharedMediaItem)
   public items!: SharedMediaItem[]

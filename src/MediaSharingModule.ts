@@ -11,7 +11,7 @@ export class MediaSharingModule implements Module {
   public readonly api = MediaSharingApi
 
   /**
-   * Registers the dependencies of the question answer module on the dependency manager.
+   * Registers the dependencies of media sharing module on the dependency manager.
    */
   public register(dependencyManager: DependencyManager, featureRegistry: FeatureRegistry) {
     // Api

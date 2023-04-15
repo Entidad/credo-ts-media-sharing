@@ -3,6 +3,7 @@ import {
   ConnectionService,
   Dispatcher,
   injectable,
+  MessageHandlerRegistry,
   MessageSender,
   OutboundMessageContext,
 } from '@aries-framework/core'
@@ -33,7 +34,6 @@ export class MediaSharingApi {
   private agentContext: AgentContext
 
   public constructor(
-    dispatcher: Dispatcher,
     messageSender: MessageSender,
     mediaSharingService: MediaSharingService,
     connectionService: ConnectionService,
@@ -43,7 +43,8 @@ export class MediaSharingApi {
     this.mediaSharingService = mediaSharingService
     this.connectionService = connectionService
     this.agentContext = agentContext
-    this.registerHandlers(dispatcher)
+
+    this.agentContext.dependencyManager.registerMessageHandlers([new ShareMediaHandler(this.mediaSharingService)])
   }
 
   /**
@@ -111,9 +112,5 @@ export class MediaSharingApi {
    */
   public findById(recordId: string): Promise<MediaSharingRecord | null> {
     return this.mediaSharingService.findById(this.agentContext, recordId)
-  }
-
-  private registerHandlers(dispatcher: Dispatcher) {
-    dispatcher.registerMessageHandler(new ShareMediaHandler(this.mediaSharingService))
   }
 }
