@@ -122,7 +122,7 @@ export class MediaSharingService {
         role: MediaSharingRole.Receiver,
         items: message.items,
         description: message.description,
-        sentTime: message.sentTime
+        sentTime: message.sentTime,
       })
 
       await this.mediaSharingRepository.save(messageContext.agentContext, record)
@@ -218,6 +218,4 @@ export class MediaSharingService {
   public async update(agentContext: AgentContext, record: MediaSharingRecord) {
     return await this.mediaSharingRepository.update(agentContext, record)
   }
-
-  
 }
