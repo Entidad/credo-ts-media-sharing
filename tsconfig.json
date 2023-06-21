@@ -10,7 +10,6 @@
       "aries-javascript-media-sharing/*": ["src"]
     },
     "types": ["jest", "node"],
-    "watch": true
   },
   "exclude": ["node_modules", "build"]
 }

@@ -1,32 +1,43 @@
 import { v4 as uuid } from 'uuid'
-import { AriesFrameworkError, Attachment, AttachmentData, BaseRecord } from '@aries-framework/core'
+import { AriesFrameworkError, BaseRecord, utils } from '@aries-framework/core'
 import { MediaSharingRole, MediaSharingState } from '../model'
-import { AttachmentOptions } from '@aries-framework/core/build/decorators/attachment/Attachment'
-import { Exclude, Type } from 'class-transformer'
+import { Type } from 'class-transformer'
 
 export interface CipheringInfo {
   algorithm: string
   parameters: Record<string, unknown>
 }
 
-export interface SharedMediaItemOptions extends Omit<AttachmentOptions, 'data'> {
+export interface SharedMediaItemOptions {
+  id?: string
   uri: string
+  mimeType: string
+  description?: string
+  byteCount?: number
+  fileName?: string
   ciphering?: CipheringInfo
   metadata?: Record<string, unknown>
 }
 
-export class SharedMediaItem extends Attachment {
-  @Exclude()
-  public get uri() {
-    return this.data.links ? this.data.links[0] : undefined
-  }
+export class SharedMediaItem {
 
+  public id!: string
+  public uri!: string
+  public mimeType!: string
+  public description?: string
+  public byteCount?: number
+  public fileName?: string
   public ciphering?: CipheringInfo
   public metadata?: Record<string, unknown>
 
   public constructor(options: SharedMediaItemOptions) {
-    super({ ...options, data: new AttachmentData({ links: [options?.uri] }) })
     if (options) {
+      this.id = options.id ?? utils.uuid()
+      this.uri = options.uri
+      this.mimeType = options.mimeType
+      this.description = options.description
+      this.byteCount = options.byteCount
+      this.fileName = options.fileName
       this.ciphering = options.ciphering
       this.metadata = options.metadata
     }

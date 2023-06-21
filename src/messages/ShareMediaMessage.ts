@@ -1,8 +1,37 @@
-import { AgentMessage, IsValidMessageType, parseMessageType } from '@aries-framework/core'
+import { AgentMessage, Attachment, IsValidMessageType, parseMessageType } from '@aries-framework/core'
 import { DateParser } from '@aries-framework/core/build/utils/transformers'
 import { Expose, Transform, Type } from 'class-transformer'
 import { IsDate, IsOptional, IsString } from 'class-validator'
-import { SharedMediaItem } from '../repository'
+import { CipheringInfo, SharedMediaItem } from '../repository'
+
+interface SharedMediaItemDescriptorOptions {
+  id: string
+  attachmentId: string
+  description?: string
+  ciphering?: CipheringInfo
+  metadata?: Record<string, unknown>
+}
+
+class SharedMediaItemDescriptor {
+  @Expose({ name: '@id' })
+  public id!: string
+
+  @Expose({ name: 'attachment_id' })
+  public attachmentId!: string
+
+  public ciphering?: CipheringInfo
+
+  public metadata?: Record<string, unknown>
+
+  public constructor(options: SharedMediaItemDescriptorOptions) {
+    if (options) {
+      this.id = options.id
+      this.attachmentId = options.attachmentId
+      this.ciphering = options.ciphering
+      this.metadata = options.metadata
+    }
+  }
+}
 
 export interface ShareMediaMessageOptions {
   id?: string
@@ -33,7 +62,27 @@ export class ShareMediaMessage extends AgentMessage {
 
       this.sentTime = options.sentTime || new Date()
       this.description = options.description
-      this.items = options.items
+
+      // Assign an attachment per item using index as id
+      this.items = []
+      
+      for (var i = 0; i < options.items.length; i++) {
+        const item = options.items[i]
+        this.addAppendedAttachment(new Attachment({
+          id: i.toString(),
+          data: { links: [item.uri] },
+          byteCount: item.byteCount,
+          filename: item.fileName,
+          description: item.description,
+          mimeType: item.mimeType,
+        }))
+        this.items.push({
+          id: item.id,
+          attachmentId: i.toString(),
+          ciphering: item.ciphering,
+          metadata: item.metadata,
+        })
+      }
     }
   }
 
@@ -46,10 +95,10 @@ export class ShareMediaMessage extends AgentMessage {
   @IsDate()
   public sentTime!: Date
 
-  @Type(() => SharedMediaItem)
-  public items!: SharedMediaItem[]
+  @Type(() => SharedMediaItemDescriptor)
+  public items!: SharedMediaItemDescriptor[]
 
   @IsValidMessageType(ShareMediaMessage.type)
   public readonly type = ShareMediaMessage.type.messageTypeUri
-  public static readonly type = parseMessageType('https://2060.io/didcomm/media-sharing/0.1/share-media')
+  public static readonly type = parseMessageType('https://didcomm.org/media-sharing/1.0/share-media')
 }

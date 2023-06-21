@@ -2,7 +2,7 @@ import { AgentContext, AriesFrameworkError, EventEmitter, MessageHandlerInboundM
 import { Lifecycle, scoped } from 'tsyringe'
 
 import { MediaSharingEventTypes, MediaSharingStateChangedEvent } from '../MediaSharingEvents'
-import { MediaSharingRepository, MediaSharingRecord } from '../repository'
+import { MediaSharingRepository, MediaSharingRecord, SharedMediaItem } from '../repository'
 import { ShareMediaMessage } from '../messages'
 import { ShareMediaHandler } from '../handlers'
 import { MediaSharingRole, MediaSharingState } from '../model'
@@ -113,6 +113,36 @@ export class MediaSharingService {
         throw new AriesFrameworkError('There are no valid items in MediaSharingRecord')
       }
 
+      // Process items
+      const items: SharedMediaItem[] = []
+
+      for (const item of message.items) {
+        const relatedAttachment = message.appendedAttachments?.find(attachment => attachment .id === item.attachmentId)
+        if (!relatedAttachment) {
+          throw new AriesFrameworkError(`No attachment found for shared item ${item.id}`)
+        }
+
+        if (!relatedAttachment.mimeType) {
+          throw new AriesFrameworkError(`Missing MIME type for shared item ${item.id}`)
+        }
+
+        if (!relatedAttachment.data.links || !relatedAttachment.data.links.length) {
+          throw new AriesFrameworkError(`Missing URI for for shared item ${item.id}`)
+        }
+
+        items.push({
+          id: item.id,
+          ciphering: item.ciphering,
+          metadata: item.metadata,
+          mimeType: relatedAttachment.mimeType,
+          uri: relatedAttachment.data.links[0],
+          byteCount: relatedAttachment.byteCount,
+          description: relatedAttachment.description,
+          fileName: relatedAttachment.filename,
+
+        })
+      }
+
       // New record
       const record = new MediaSharingRecord({
         connectionId: connection.id,
@@ -120,7 +150,7 @@ export class MediaSharingService {
         parentThreadId: messageContext.message.thread?.parentThreadId,
         state: MediaSharingState.MediaShared,
         role: MediaSharingRole.Receiver,
-        items: message.items,
+        items,
         description: message.description,
         sentTime: message.sentTime,
       })
@@ -140,7 +170,7 @@ export class MediaSharingService {
   }
 
   /**
-   * Retrieve all auth code records
+   * Retrieve all media sharing records
    *
    * @returns List containing all auth code records
    */

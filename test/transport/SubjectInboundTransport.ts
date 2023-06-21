@@ -1,20 +1,10 @@
-import {
-  Agent,
-  EncryptedMessage,
-  InboundTransport,
-  MessageReceiver,
-  TransportService,
-  TransportSession,
-} from '@aries-framework/core'
-import { uuid } from '@aries-framework/core/build/utils/uuid'
+import { Agent, AgentContext, EncryptedMessage, InboundTransport, MessageReceiver, TransportService, TransportSession, utils } from '@aries-framework/core';
 import type { Subscription } from 'rxjs'
 
 import { Subject } from 'rxjs'
 
-export type SubjectMessage = {
-  message: EncryptedMessage
-  replySubject?: Subject<SubjectMessage>
-}
+
+export type SubjectMessage = { message: EncryptedMessage; replySubject?: Subject<SubjectMessage> }
 
 export class SubjectInboundTransport implements InboundTransport {
   public readonly ourSubject: Subject<SubjectMessage>
@@ -43,7 +33,7 @@ export class SubjectInboundTransport implements InboundTransport {
 
         let session: SubjectTransportSession | undefined
         if (replySubject) {
-          session = new SubjectTransportSession(`subject-session-${uuid()}`, replySubject)
+          session = new SubjectTransportSession(`subject-session-${utils.uuid()}`, replySubject)
 
           // When the subject is completed (e.g. when the session is closed), we need to
           // remove the session from the transport service so it won't be used for sending messages
@@ -69,7 +59,7 @@ export class SubjectTransportSession implements TransportSession {
     this.replySubject = replySubject
   }
 
-  public async send(encryptedMessage: EncryptedMessage): Promise<void> {
+  public async send(agentContext: AgentContext, encryptedMessage: EncryptedMessage): Promise<void> {
     this.replySubject.next({ message: encryptedMessage })
   }
 

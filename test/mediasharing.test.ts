@@ -1,21 +1,22 @@
 import { agentDependencies } from '@aries-framework/node'
+import { AskarModule } from '@aries-framework/askar'
+import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
 import {
   Agent,
   ConnectionRecord,
   ConsoleLogger,
   EncryptedMessage,
-  JsonTransformer,
   LogLevel,
 } from '@aries-framework/core'
 import { v4 as uuid } from 'uuid'
 import { firstValueFrom, ReplaySubject, Subject } from 'rxjs'
 import { MediaSharingModule } from '../src/MediaSharingModule'
-import { MediaSharingRecord, SharedMediaItem } from '../src/repository'
+import { MediaSharingRecord } from '../src/repository'
 import { SubjectOutboundTransport } from './transport/SubjectOutboundTransport'
 import { SubjectInboundTransport } from './transport/SubjectInboundTransport'
 import { recordsAddedByType } from './recordUtils'
 
-const logger = new ConsoleLogger(LogLevel.info)
+const logger = new ConsoleLogger(LogLevel.debug)
 
 export type SubjectMessage = {
   message: EncryptedMessage
@@ -55,7 +56,7 @@ describe('media test', () => {
         logger,
       },
       dependencies: agentDependencies,
-      modules: { media: new MediaSharingModule() },
+      modules: { askar: new AskarModule({ ariesAskar }), media: new MediaSharingModule() },
     })
 
     aliceAgent.registerOutboundTransport(new SubjectOutboundTransport(subjectMap))
@@ -71,7 +72,7 @@ describe('media test', () => {
         logger,
       },
       dependencies: agentDependencies,
-      modules: { media: new MediaSharingModule() },
+      modules: { askar: new AskarModule({ ariesAskar }), media: new MediaSharingModule() },
     })
 
     bobAgent.registerOutboundTransport(new SubjectOutboundTransport(subjectMap))
@@ -146,7 +147,6 @@ describe('media test', () => {
     const bobRecord = await firstValueFrom(subjectBob)
     await firstValueFrom(subjectAlice)
 
-    console.log(bobRecord.items![0])
     expect(bobRecord.items?.length).toBe(1)
     expect(bobRecord.items![0].mimeType).toBe('image/png')
     expect(bobRecord.items![0].uri).toBe('http://blabla')

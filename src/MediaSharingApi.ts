@@ -1,9 +1,7 @@
 import {
   AgentContext,
   ConnectionService,
-  Dispatcher,
   injectable,
-  MessageHandlerRegistry,
   MessageSender,
   OutboundMessageContext,
 } from '@aries-framework/core'
@@ -108,10 +106,20 @@ export class MediaSharingApi {
   /**
    * Find a record by id
    *
-   * @param recordId the  record id
+   * @param recordId the record id
    * @returns  the record or null if not found
    */
   public findById(recordId: string): Promise<MediaSharingRecord | null> {
     return this.mediaSharingService.findById(this.agentContext, recordId)
   }
+
+  /**
+   * Find a record by thread id
+   *
+   * @param recordId the record id
+   * @returns  the record or null if not found
+   */
+    public findByThreadId(recordId: string): Promise<MediaSharingRecord | null> {
+      return this.mediaSharingService.findByThreadId(this.agentContext, recordId)
+    }
 }
