@@ -119,7 +119,7 @@ export class MediaSharingApi {
    * @param recordId the record id
    * @returns  the record or null if not found
    */
-    public findByThreadId(recordId: string): Promise<MediaSharingRecord | null> {
-      return this.mediaSharingService.findByThreadId(this.agentContext, recordId)
-    }
+  public findByThreadId(recordId: string): Promise<MediaSharingRecord | null> {
+    return this.mediaSharingService.findByThreadId(this.agentContext, recordId)
+  }
 }

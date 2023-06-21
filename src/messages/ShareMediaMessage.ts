@@ -65,17 +65,19 @@ export class ShareMediaMessage extends AgentMessage {
 
       // Assign an attachment per item using index as id
       this.items = []
-      
+
       for (var i = 0; i < options.items.length; i++) {
         const item = options.items[i]
-        this.addAppendedAttachment(new Attachment({
-          id: i.toString(),
-          data: { links: [item.uri] },
-          byteCount: item.byteCount,
-          filename: item.fileName,
-          description: item.description,
-          mimeType: item.mimeType,
-        }))
+        this.addAppendedAttachment(
+          new Attachment({
+            id: i.toString(),
+            data: { links: [item.uri] },
+            byteCount: item.byteCount,
+            filename: item.fileName,
+            description: item.description,
+            mimeType: item.mimeType,
+          })
+        )
         this.items.push({
           id: item.id,
           attachmentId: i.toString(),

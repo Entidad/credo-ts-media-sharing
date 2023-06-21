@@ -117,7 +117,7 @@ export class MediaSharingService {
       const items: SharedMediaItem[] = []
 
       for (const item of message.items) {
-        const relatedAttachment = message.appendedAttachments?.find(attachment => attachment .id === item.attachmentId)
+        const relatedAttachment = message.appendedAttachments?.find((attachment) => attachment.id === item.attachmentId)
         if (!relatedAttachment) {
           throw new AriesFrameworkError(`No attachment found for shared item ${item.id}`)
         }
@@ -139,7 +139,6 @@ export class MediaSharingService {
           byteCount: relatedAttachment.byteCount,
           description: relatedAttachment.description,
           fileName: relatedAttachment.filename,
-
         })
       }
 

@@ -1,8 +1,16 @@
-import { Agent, AgentContext, EncryptedMessage, InboundTransport, MessageReceiver, TransportService, TransportSession, utils } from '@aries-framework/core';
+import {
+  Agent,
+  AgentContext,
+  EncryptedMessage,
+  InboundTransport,
+  MessageReceiver,
+  TransportService,
+  TransportSession,
+  utils,
+} from '@aries-framework/core'
 import type { Subscription } from 'rxjs'
 
 import { Subject } from 'rxjs'
-
 
 export type SubjectMessage = { message: EncryptedMessage; replySubject?: Subject<SubjectMessage> }
 

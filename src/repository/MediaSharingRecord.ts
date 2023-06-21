@@ -20,7 +20,6 @@ export interface SharedMediaItemOptions {
 }
 
 export class SharedMediaItem {
-
   public id!: string
   public uri!: string
   public mimeType!: string

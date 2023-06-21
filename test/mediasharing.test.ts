@@ -1,13 +1,7 @@
 import { agentDependencies } from '@aries-framework/node'
 import { AskarModule } from '@aries-framework/askar'
 import { ariesAskar } from '@hyperledger/aries-askar-nodejs'
-import {
-  Agent,
-  ConnectionRecord,
-  ConsoleLogger,
-  EncryptedMessage,
-  LogLevel,
-} from '@aries-framework/core'
+import { Agent, ConnectionRecord, ConsoleLogger, EncryptedMessage, LogLevel } from '@aries-framework/core'
 import { v4 as uuid } from 'uuid'
 import { firstValueFrom, ReplaySubject, Subject } from 'rxjs'
 import { MediaSharingModule } from '../src/MediaSharingModule'
