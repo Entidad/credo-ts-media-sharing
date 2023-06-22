@@ -26,7 +26,7 @@ export class MediaSharingModule implements Module {
     // Feature Registry
     featureRegistry.register(
       new Protocol({
-        id: 'https://2060.io/didcomm/media-sharing/0.1',
+        id: 'https://didcomm.org/media-sharing/1.0',
         roles: [MediaSharingRole.Sender, MediaSharingRole.Receiver],
       })
     )

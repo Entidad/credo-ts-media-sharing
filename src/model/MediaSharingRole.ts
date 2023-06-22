@@ -1,6 +1,6 @@
 /**
  * Media Sharing roles as defined in
- * https://github.com/2060-io/aries-rfcs/tree/feature/media-sharing/features/xxxx-media-sharing#roles
+ * https://github.com/genaris/didcomm.org/tree/feat/media-sharing/site/content/protocols/media-sharing/1.0#roles
  */
 
 export enum MediaSharingRole {
