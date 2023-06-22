@@ -2,36 +2,6 @@ import { AgentMessage, IsValidMessageType, parseMessageType } from '@aries-frame
 import { DateParser } from '@aries-framework/core/build/utils/transformers'
 import { Expose, Transform } from 'class-transformer'
 import { IsDate, IsOptional, IsString } from 'class-validator'
-import { CipheringInfo } from '../repository'
-
-interface SharedMediaItemDescriptorOptions {
-  id: string
-  attachmentId: string
-  description?: string
-  ciphering?: CipheringInfo
-  metadata?: Record<string, unknown>
-}
-
-class SharedMediaItemDescriptor {
-  @Expose({ name: '@id' })
-  public id!: string
-
-  @Expose({ name: 'attachment_id' })
-  public attachmentId!: string
-
-  public ciphering?: CipheringInfo
-
-  public metadata?: Record<string, unknown>
-
-  public constructor(options: SharedMediaItemDescriptorOptions) {
-    if (options) {
-      this.id = options.id
-      this.attachmentId = options.attachmentId
-      this.ciphering = options.ciphering
-      this.metadata = options.metadata
-    }
-  }
-}
 
 export interface RequestMediaMessageOptions {
   id?: string

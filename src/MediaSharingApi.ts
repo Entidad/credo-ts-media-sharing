@@ -5,7 +5,7 @@ import {
   MessageSender,
   OutboundMessageContext,
 } from '@aries-framework/core'
-import { ShareMediaHandler } from './handlers'
+import { RequestMediaHandler, ShareMediaHandler } from './handlers'
 import { MediaSharingRecord, SharedMediaItem, SharedMediaItemOptions } from './repository'
 import { MediaSharingService } from './services'
 
@@ -49,7 +49,10 @@ export class MediaSharingApi {
     this.connectionService = connectionService
     this.agentContext = agentContext
 
-    this.agentContext.dependencyManager.registerMessageHandlers([new ShareMediaHandler(this.mediaSharingService)])
+    this.agentContext.dependencyManager.registerMessageHandlers([
+      new ShareMediaHandler(this.mediaSharingService),
+      new RequestMediaHandler(this.mediaSharingService),
+    ])
   }
 
   /**
