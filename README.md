@@ -1,8 +1,8 @@
-# Aries JavaScript Media Sharing plug-in
+# Aries JavaScript Media Sharing extension module
 
-This module is used to provide an Aries Agent built with Aries Framework JavaScript means to manage [Media Sharing protocol](https://github.com/2060-io/aries-rfcs/tree/feature/media-sharing/features/xxxx-media-sharing).
+This module is used to provide an Aries Agent built with Aries Framework JavaScript means to manage [Media Sharing protocol](https://github.com/genaris/didcomm.org/tree/feat/media-sharing/site/content/protocols/media-sharing/1.0).
 
-It's conceived as a plug-in for Aries Framework JavaScript which can be injected to an existing agent instance:
+It's conceived as an extension module for Aries Framework JavaScript which can be injected to an existing agent instance:
 
 ```ts
 import { MediaSharingModule } from 'aries-javascript-media-sharing'

@@ -24,6 +24,13 @@ export interface MediaSharingShareOptions {
   items?: SharedMediaItemOptions[]
 }
 
+export interface MediaSharingRequestOptions {
+  connectionId: string
+  parentThreadId?: string
+  description?: string
+  itemIds: string[]
+}
+
 @injectable()
 export class MediaSharingApi {
   private messageSender: MessageSender
@@ -86,6 +93,27 @@ export class MediaSharingApi {
     )
 
     return record
+  }
+
+  /**
+   * Receiver role: request media
+   */
+  public async request(options: MediaSharingRequestOptions) {
+    const connection = await this.connectionService.getById(this.agentContext, options.connectionId)
+
+    const { message: payload } = await this.mediaSharingService.createMediaRequest(this.agentContext, {
+      connectionId: options.connectionId,
+      itemIds: options.itemIds,
+      description: options.description,
+      parentThreadId: options.parentThreadId,
+    })
+
+    await this.messageSender.sendMessage(
+      new OutboundMessageContext(payload, {
+        agentContext: this.agentContext,
+        connection,
+      })
+    )
   }
 
   public async setMetadata(recordId: string, key: string, value: unknown) {

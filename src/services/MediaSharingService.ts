@@ -3,10 +3,14 @@ import { Lifecycle, scoped } from 'tsyringe'
 
 import { MediaSharingEventTypes, MediaSharingStateChangedEvent } from '../MediaSharingEvents'
 import { MediaSharingRepository, MediaSharingRecord, SharedMediaItem } from '../repository'
-import { ShareMediaMessage } from '../messages'
+import { ShareMediaMessage, RequestMediaMessage } from '../messages'
 import { ShareMediaHandler } from '../handlers'
 import { MediaSharingRole, MediaSharingState } from '../model'
-import { CreateMediaSharingRecordOptions, ShareMediaSharingRecordOptions } from './MediaSharingServiceOptions'
+import {
+  CreateMediaSharingRecordOptions,
+  RequestMediaSharingRecordOptions,
+  ShareMediaSharingRecordOptions,
+} from './MediaSharingServiceOptions'
 
 @scoped(Lifecycle.ContainerScoped)
 export class MediaSharingService {
@@ -96,6 +100,24 @@ export class MediaSharingService {
     })
 
     return { record, message }
+  }
+
+  /**
+   * Creates a media request
+   * @param options
+   * @returns
+   */
+  public async createMediaRequest(agentContext: AgentContext, options: RequestMediaSharingRecordOptions) {
+    const conenctionId = options.connectionId
+
+    // Create message
+    const message = new RequestMediaMessage({
+      parentThreadId: options.parentThreadId,
+      description: options.description,
+      itemIds: options.itemIds,
+    })
+
+    return { message }
   }
 
   public async processShareMedia(messageContext: MessageHandlerInboundMessage<ShareMediaHandler>) {

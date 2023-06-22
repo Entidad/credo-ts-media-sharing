@@ -15,3 +15,10 @@ export interface ShareMediaSharingRecordOptions {
   description?: string
   items?: SharedMediaItem[]
 }
+
+export interface RequestMediaSharingRecordOptions {
+  connectionId: string
+  parentThreadId?: string
+  description?: string
+  itemIds: string[]
+}
