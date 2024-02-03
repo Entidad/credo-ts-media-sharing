@@ -5,7 +5,7 @@ This module is used to provide an Aries Agent built with Aries Framework JavaScr
 It's conceived as an extension module for Aries Framework JavaScript which can be injected to an existing agent instance:
 
 ```ts
-import { MediaSharingModule } from 'aries-javascript-media-sharing'
+import { MediaSharingModule } from 'credo-ts-media-sharing'
 
 const agent = new Agent({
   config: {

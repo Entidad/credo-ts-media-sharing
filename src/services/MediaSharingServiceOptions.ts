@@ -1,4 +1,4 @@
-import { ConnectionRecord } from '@aries-framework/core'
+import { ConnectionRecord } from '@credo-ts/core'
 import { MediaSharingRecord, SharedMediaItem } from '../repository'
 
 export interface CreateMediaSharingRecordOptions {

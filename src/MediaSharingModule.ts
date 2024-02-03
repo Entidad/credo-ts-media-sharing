@@ -1,6 +1,6 @@
-import type { DependencyManager, FeatureRegistry, Module } from '@aries-framework/core'
+import type { DependencyManager, FeatureRegistry, Module } from '@credo-ts/core'
 
-import { Protocol } from '@aries-framework/core'
+import { Protocol } from '@credo-ts/core'
 
 import { MediaSharingApi } from './MediaSharingApi'
 import { MediaSharingRole } from './model'

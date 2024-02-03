@@ -1,10 +1,4 @@
-import {
-  AgentContext,
-  ConnectionService,
-  injectable,
-  MessageSender,
-  OutboundMessageContext,
-} from '@aries-framework/core'
+import { AgentContext, ConnectionService, injectable, MessageSender, OutboundMessageContext } from '@credo-ts/core'
 import { RequestMediaHandler, ShareMediaHandler } from './handlers'
 import { MediaSharingRecord, SharedMediaItem, SharedMediaItemOptions } from './repository'
 import { MediaSharingService } from './services'

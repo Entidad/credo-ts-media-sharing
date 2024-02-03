@@ -1,4 +1,4 @@
-import { AgentContext, AriesFrameworkError, EventEmitter, MessageHandlerInboundMessage } from '@aries-framework/core'
+import { AgentContext, CredoError, EventEmitter, MessageHandlerInboundMessage } from '@credo-ts/core'
 import { Lifecycle, scoped } from 'tsyringe'
 
 import { MediaSharingEventTypes, MediaSharingStateChangedEvent } from '../MediaSharingEvents'
@@ -75,7 +75,7 @@ export class MediaSharingService {
     }
 
     if (!record.items) {
-      throw new AriesFrameworkError('MediaSharingRecord does not contain any item to share')
+      throw new CredoError('MediaSharingRecord does not contain any item to share')
     }
 
     // Create message
@@ -127,12 +127,12 @@ export class MediaSharingService {
 
     // Media sharing record already exists
     if (record) {
-      throw new AriesFrameworkError(`There is already a MediaSharingRecord with thread Id ${message.threadId}`)
+      throw new CredoError(`There is already a MediaSharingRecord with thread Id ${message.threadId}`)
     } else {
       const connection = messageContext.assertReadyConnection()
 
       if (message.items.length === 0) {
-        throw new AriesFrameworkError('There are no valid items in MediaSharingRecord')
+        throw new CredoError('There are no valid items in MediaSharingRecord')
       }
 
       // Process items
@@ -141,15 +141,15 @@ export class MediaSharingService {
       for (const item of message.items) {
         const relatedAttachment = message.appendedAttachments?.find((attachment) => attachment.id === item.attachmentId)
         if (!relatedAttachment) {
-          throw new AriesFrameworkError(`No attachment found for shared item ${item.id}`)
+          throw new CredoError(`No attachment found for shared item ${item.id}`)
         }
 
         if (!relatedAttachment.mimeType) {
-          throw new AriesFrameworkError(`Missing MIME type for shared item ${item.id}`)
+          throw new CredoError(`Missing MIME type for shared item ${item.id}`)
         }
 
         if (!relatedAttachment.data.links || !relatedAttachment.data.links.length) {
-          throw new AriesFrameworkError(`Missing URI for for shared item ${item.id}`)
+          throw new CredoError(`Missing URI for for shared item ${item.id}`)
         }
 
         items.push({

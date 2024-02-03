@@ -1,6 +1,6 @@
 import { MediaSharingRecord } from './repository'
 import { MediaSharingState } from './model'
-import { BaseEvent } from '@aries-framework/core'
+import { BaseEvent } from '@credo-ts/core'
 
 export enum MediaSharingEventTypes {
   StateChanged = 'MediaSharingStateChangedEvent',

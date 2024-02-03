@@ -1,5 +1,5 @@
 import { v4 as uuid } from 'uuid'
-import { AriesFrameworkError, BaseRecord, utils } from '@aries-framework/core'
+import { CredoError, BaseRecord, utils } from '@credo-ts/core'
 import { MediaSharingRole, MediaSharingState } from '../model'
 import { Type } from 'class-transformer'
 
@@ -106,9 +106,7 @@ export class MediaSharingRecord extends BaseRecord<any, any, any> {
 
   public assertRole(expectedRole: MediaSharingRole) {
     if (this.role !== expectedRole) {
-      throw new AriesFrameworkError(
-        `Media sharing record has invalid role ${this.role}. Expected role ${expectedRole}.`
-      )
+      throw new CredoError(`Media sharing record has invalid role ${this.role}. Expected role ${expectedRole}.`)
     }
   }
 

@@ -1,4 +1,4 @@
-import { MessageHandler, MessageHandlerInboundMessage } from '@aries-framework/core'
+import { MessageHandler, MessageHandlerInboundMessage } from '@credo-ts/core'
 import { ShareMediaMessage } from '../messages/ShareMediaMessage'
 import { MediaSharingService } from '../services'
 

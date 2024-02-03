@@ -1,5 +1,5 @@
-import { AgentMessage, Attachment, IsValidMessageType, parseMessageType } from '@aries-framework/core'
-import { DateParser } from '@aries-framework/core/build/utils/transformers'
+import { AgentMessage, Attachment, IsValidMessageType, parseMessageType } from '@credo-ts/core'
+import { DateParser } from '@credo-ts/core/build/utils/transformers'
 import { Expose, Transform, Type } from 'class-transformer'
 import { IsDate, IsOptional, IsString } from 'class-validator'
 import { CipheringInfo, SharedMediaItem } from '../repository'
