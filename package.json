@@ -1,6 +1,6 @@
 {
   "name": "credo-ts-media-sharing",
-  "version": "0.0.0.alpha-0",
+  "version": "0.0.1",
   "description": "Media sharing protocol implementation for credo-ts",
   "author": "2060.io",
   "homepage": "https://github.com/Entidad/credo-ts-media-sharing",
