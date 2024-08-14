@@ -28,6 +28,6 @@ export declare class ShareMediaMessage extends AgentMessage {
     sentTime: Date;
     items: SharedMediaItemDescriptor[];
     readonly type: string;
-    static readonly type: import("@credo-ts/core/build/utils/messageType").ParsedMessageType;
+    static readonly type: import("@credo-ts/core").ParsedMessageType;
 }
 export {};

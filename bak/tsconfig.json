@@ -1,15 +1,15 @@
 {
   "extends": "./tsconfig.build.json",
   "ts-node": {
+    "require": ["tsconfig-paths/register"],
     "files": true
   },
   "compilerOptions": {
-    "types": ["jest"],
     "baseUrl": ".",
     "paths": {
       "credo-ts-media-sharing/*": ["src"]
     },
     "types": ["jest", "node"]
   },
-  "exclude": ["node_modules", "**/build/**"]
+  "exclude": ["node_modules", "build"]
 }

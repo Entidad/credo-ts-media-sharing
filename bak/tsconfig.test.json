@@ -1,15 +1,14 @@
 {
   "extends": "./tsconfig.build.json",
   "ts-node": {
-    "files": true
+    "require": ["tsconfig-paths/register"]
   },
   "compilerOptions": {
-    "types": ["jest"],
     "baseUrl": ".",
     "paths": {
-      "credo-ts-media-sharing/*": ["src"]
+      "@2060-agent-sdk/*": ["packages/*/src"]
     },
     "types": ["jest", "node"]
   },
-  "exclude": ["node_modules", "**/build/**"]
+  "include": ["test", "samples"]
 }

@@ -13,5 +13,5 @@ export declare class RequestMediaMessage extends AgentMessage {
     sentTime: Date;
     itemIds: string[];
     readonly type: string;
-    static readonly type: import("@credo-ts/core/build/utils/messageType").ParsedMessageType;
+    static readonly type: import("@credo-ts/core").ParsedMessageType;
 }
