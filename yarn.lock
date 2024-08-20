@@ -344,22 +344,22 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@credo-ts/askar@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@credo-ts/askar/-/askar-0.5.9.tgz#62d6b458870f667283bd5cac9b1806886a9364c2"
-  integrity sha512-rnsjLgkzn+mk73kQfssmQixZ64Tjf3DCHcBIDmmUUqX43u6hxTYy/ZWAXfdqOJaffSito2qlNSToQ79S2E13lQ==
+"@credo-ts/askar@0.5.10":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@credo-ts/askar/-/askar-0.5.10.tgz#b9289eb3e7b757e0ae78351ad8698facc6209ade"
+  integrity sha512-uBo+SQFK3GQaY4cQddOi7VaAqOrDVTzPpRN33Q/zVCbMX6TAhI4aXKOcbl4axhD9VXUkiHsh1MzOFkODiG1Bvw==
   dependencies:
-    "@credo-ts/core" "0.5.9"
+    "@credo-ts/core" "0.5.10"
     bn.js "^5.2.1"
     class-transformer "0.5.1"
     class-validator "0.14.1"
     rxjs "^7.8.0"
     tsyringe "^4.8.0"
 
-"@credo-ts/core@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@credo-ts/core/-/core-0.5.9.tgz#50460435f12c8f4fd5642ad7315853749b2038c1"
-  integrity sha512-zMRgRUo2AzfEcEDtBs+sxH18gbsNNe10x3yueLNgOdwd3obSTEXMsLaXgl8O0TPLmiHKny3OR9oflQldTKkEiQ==
+"@credo-ts/core@0.5.10":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@credo-ts/core/-/core-0.5.10.tgz#6d6f4390fd9e6d8426731e69ebc8b441f61bfd2b"
+  integrity sha512-Y9AysZqiLURxJpu4SO8/rZ6wZ3mSZjvn0WorFLUREMcySCX/z+flYIOSkdE5YALvBy6luzqcEFB01qkpgfH6hw==
   dependencies:
     "@digitalcredentials/jsonld" "^6.0.0"
     "@digitalcredentials/jsonld-signatures" "^9.4.0"
@@ -378,7 +378,7 @@
     "@sd-jwt/utils" "^0.7.0"
     "@sphereon/pex" "^3.3.2"
     "@sphereon/pex-models" "^2.2.4"
-    "@sphereon/ssi-types" "^0.23.0"
+    "@sphereon/ssi-types" "^0.28.0"
     "@stablelib/ed25519" "^1.0.2"
     "@types/ws" "^8.5.4"
     abort-controller "^3.0.0"
@@ -402,14 +402,14 @@
     web-did-resolver "^2.0.21"
     webcrypto-core "^1.8.0"
 
-"@credo-ts/node@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@credo-ts/node/-/node-0.5.9.tgz#de1d93267bc8d00f09eb7403cd28d6ac2dc83912"
-  integrity sha512-WpAYSDT6mymXolqCq2hUrP+32UtHnMrlf4BTTxUXaz7VULHZxs0/nP1/dLz7tzwFgGss1YA6cmAK6G1oCR+yWg==
+"@credo-ts/node@0.5.10":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@credo-ts/node/-/node-0.5.10.tgz#f770a0f65ca0319164194e02fd9c8227e4d46ebb"
+  integrity sha512-x82G3vXVZ2tOVWVAw1Gc/jzNgeH2LrtLJ8qn251IpcELQraVaZHfUqFE3avlW0RSs8I/VhtNaJlOMj1x6zfsHg==
   dependencies:
     "@2060.io/ffi-napi" "^4.0.9"
     "@2060.io/ref-napi" "^3.0.6"
-    "@credo-ts/core" "0.5.9"
+    "@credo-ts/core" "0.5.10"
     "@types/express" "^4.17.15"
     express "^4.17.1"
     ws "^8.13.0"
@@ -1330,12 +1330,14 @@
     "@sd-jwt/decode" "^0.6.1"
     jwt-decode "^3.1.2"
 
-"@sphereon/ssi-types@^0.23.0":
-  version "0.23.4"
-  resolved "https://registry.yarnpkg.com/@sphereon/ssi-types/-/ssi-types-0.23.4.tgz#8d53e12b51e00376fdc0190c8244b1602f12d5ca"
-  integrity sha512-1lM2yfOEhpcYYBxm/12KYY4n3ZSahVf5rFqGdterQkMJMthwr20HqTjw3+VK5p7IVf+86DyBoZJyS4V9tSsoCA==
+"@sphereon/ssi-types@^0.28.0":
+  version "0.28.0"
+  resolved "https://registry.yarnpkg.com/@sphereon/ssi-types/-/ssi-types-0.28.0.tgz#3eccb6dd7be19af26c5820885f35f3232d038a2d"
+  integrity sha512-NkTkrsBoQUZzJutlk5XD3snBxL9kfsxKdQvBbGUEaUDOiW8siTNUoJuQFeA+bI0eJY99up95bmMKdJeDc1VDfg==
   dependencies:
     "@sd-jwt/decode" "^0.6.1"
+    debug "^4.3.5"
+    events "^3.3.0"
     jwt-decode "^3.1.2"
 
 "@stablelib/binary@^1.0.1":
@@ -2592,7 +2594,7 @@ debug@2.6.9, debug@^2.2.0:
   dependencies:
     ms "2.0.0"
 
-debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.4:
+debug@4, debug@^4.1.0, debug@^4.1.1, debug@^4.3.1, debug@^4.3.4, debug@^4.3.5:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.6.tgz#2ab2c38fbaffebf8aa95fdfe6d88438c7a13c52b"
   integrity sha512-O/09Bd4Z1fBrU4VzkhFqVgpPzaGbw6Sm9FEkBT1A/YBXQFGuuSxa1dN2nxgxS34JmKXqYx8CZAwEVoJFImUXIg==
@@ -3060,6 +3062,11 @@ event-target-shim@^5.0.0:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
+
+events@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
+  integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
 execa@5.1.1, execa@^5.0.0:
   version "5.1.1"
