@@ -35,8 +35,7 @@
   "devDependencies": {
     "@credo-ts/askar": "0.5.10",
     "@credo-ts/node": "0.5.10",
-    "@hyperledger/aries-askar-react-native": "^0.2.3",
-    "@hyperledger/anoncreds-react-native": "^0.2.2",
+    "@hyperledger/aries-askar-nodejs": "^0.2.0-dev.6",
     "@types/jest": "^26.0.23",
     "@types/node": "^20.11.16",
     "@types/uuid": "^9.0.0",
